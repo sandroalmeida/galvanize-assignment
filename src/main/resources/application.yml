@@ -2,7 +2,7 @@ spring:
   datasource:
     url: ${JDBC_DATABASE_URL:jdbc:postgresql://localhost:5432/prodmandb}
     username: ${JDBC_DATABASE_USERNAME:postgres}
-    password: ${JDBC_DATABASE_PASSWORD:}
+    password: ${JDBC_DATABASE_PASSWORD:1234}
   dbcp2:
     max-wait-millis: 30000
     validation-query: "SELECT 1"
@@ -13,6 +13,7 @@ spring:
     open-in-view: false
     properties:
       hibernate:
+        enable_lazy_load_no_trans: true
         jdbc:
           lob:
             non_contextual_creation: true
@@ -20,3 +21,7 @@ spring:
           new_generator_mappings: true
 springdoc:
   pathsToMatch: /api/**
+fx:
+  api:
+    url: ${FX_API_URL:http://api.currencylayer.com/live}
+    key: ${FX_API_KEY:884fee8553898aac87d367b2bdbc2cfe}

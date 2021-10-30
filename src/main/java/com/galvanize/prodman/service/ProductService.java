@@ -4,6 +4,7 @@ import com.galvanize.prodman.domain.Product;
 import com.galvanize.prodman.model.ProductDTO;
 import com.galvanize.prodman.repository.ProductRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -25,6 +26,10 @@ public class ProductService {
 
     public void delete(final Integer id) {
         productRepository.deleteById(id);
+    }
+
+    public Product getProduct(ProductDTO productDTO){
+        return productRepository.getById(productDTO.getId());
     }
 
     private Product mapToEntity(final ProductDTO productDTO, final Product product) {

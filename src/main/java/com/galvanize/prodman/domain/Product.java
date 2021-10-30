@@ -3,6 +3,7 @@ package com.galvanize.prodman.domain;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 
