@@ -14,7 +14,8 @@ import javax.validation.constraints.Size;
 @Setter
 public class ProductDTO {
 
-    private Integer id;
+    @Size(max = 50)
+    private String strId;
 
     @NotNull
     @Size(max = 50)

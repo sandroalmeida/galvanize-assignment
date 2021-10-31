@@ -27,6 +27,9 @@ public class Product {
     private Integer id;
 
     @Column(nullable = false, length = 50)
+    private String strId;
+
+    @Column(nullable = false, length = 50)
     private String name;
 
     @Column
