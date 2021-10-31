@@ -26,12 +26,12 @@ public class ProductService {
         this.fxService = fxService;
     }
 
-    public String create(final ProductDTO productDTO) {
+    public IdDTO create(final ProductDTO productDTO) {
         Product product = productMapper.productDTOtoProduct(productDTO);
         product.setDeleted(false);
         product.setViews(0);
         product.setStrId(RandomString.getAlphaNumericString(50));
-        return productRepository.save(product).getStrId();
+        return new IdDTO(productRepository.save(product).getStrId());
     }
 
     public void delete(final Integer id) {
@@ -43,11 +43,11 @@ public class ProductService {
         return productMapper.productToProductDTO(product);
     }
 
-    public String softDelete(IdDTO idDTO){
+    public IdDTO softDelete(IdDTO idDTO){
         Product product = productRepository.getByStrId(idDTO.getId());
         product.setDeleted(true);
         productRepository.save(product);
-        return product.getStrId();
+        return idDTO;
     }
 
     public List<ProductDTO> getAllProducts(){
