@@ -15,6 +15,5 @@ public interface ProductMapper {
 
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "deleted", ignore = true)
     Product productDTOtoProduct(ProductDTO productDTO);
 }

@@ -31,4 +31,6 @@ public class ProductDTO {
     private Double price;
 
     private int views;
+
+    private boolean deleted;
 }

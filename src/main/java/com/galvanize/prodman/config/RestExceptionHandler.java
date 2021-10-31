@@ -2,6 +2,7 @@ package com.galvanize.prodman.config;
 
 import com.galvanize.prodman.model.ErrorResponse;
 import com.galvanize.prodman.model.FieldError;
+import com.galvanize.prodman.service.ResourceForbiddenException;
 import com.galvanize.prodman.service.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,15 @@ public class RestExceptionHandler {
         errorResponse.setException(exception.getClass().getSimpleName());
         errorResponse.setMessage("Resource Not Found");
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ResourceForbiddenException.class)
+    public ResponseEntity<ErrorResponse> handleForbidden(final ResourceForbiddenException exception) {
+        final ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setHttpStatus(HttpStatus.FORBIDDEN.value());
+        errorResponse.setException(exception.getClass().getSimpleName());
+        errorResponse.setMessage("Resource Cannot be modified");
+        return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

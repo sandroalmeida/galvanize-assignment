@@ -64,6 +64,8 @@ public class ProductServiceImpl implements ProductService{
     public ProductDTO updateProduct(IdDTO idDTO, ProductDTO productDTO){
         Product product = productRepository.getByStrId(idDTO.getId())
                 .orElseThrow(ResourceNotFoundException::new);
+        if(product.getDeleted())
+            throw new ResourceForbiddenException();
         product.setName(productDTO.getName());
         product.setDescription(productDTO.getDescription());
         product.setPrice(productDTO.getPrice());
