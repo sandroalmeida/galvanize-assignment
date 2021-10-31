@@ -9,6 +9,7 @@ public interface ProductService {
 
     IdDTO create(final ProductDTO productDTO);
     ProductDTO getProduct(IdDTO idDTO);
+    ProductDTO getProduct(IdDTO idDTO, String currency);
     IdDTO softDelete(IdDTO idDTO);
     List<ProductDTO> getAllProducts();
     ProductDTO updateProduct(IdDTO idDTO, ProductDTO productDTO);

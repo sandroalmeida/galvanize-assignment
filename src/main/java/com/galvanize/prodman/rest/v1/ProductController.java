@@ -34,6 +34,12 @@ public class ProductController {
         return productService.getProduct(new IdDTO(id));
     }
 
+    @GetMapping("/{id}/{currency}")
+    @ResponseStatus(HttpStatus.OK)
+    public ProductDTO getProduct(@PathVariable String id, @PathVariable String currency){
+        return productService.getProduct(new IdDTO(id), currency);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public IdDTO createProduct(@RequestBody ProductDTO productDTO){

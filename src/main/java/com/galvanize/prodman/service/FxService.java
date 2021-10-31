@@ -25,4 +25,5 @@ public class FxService {
     String endPoint = String.format("%s?access_key=%s&currencies=%s&format=1", fxApiUrl, fxApiKey, SUPPORTED_CURRENCIES);
     return restTemplate.getForObject(endPoint, FxResponse.class);
   }
+
 }
