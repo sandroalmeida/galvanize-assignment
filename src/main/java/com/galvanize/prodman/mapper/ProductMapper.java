@@ -13,7 +13,6 @@ public interface ProductMapper {
 
     ProductDTO productToProductDTO(Product product);
 
-    @Mapping(target = "views", ignore = true)
     @Mapping(target = "version", ignore = true)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "deleted", ignore = true)

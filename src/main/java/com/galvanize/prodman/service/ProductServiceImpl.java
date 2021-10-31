@@ -30,7 +30,6 @@ public class ProductServiceImpl implements ProductService{
     public IdDTO create(final ProductDTO productDTO) {
         Product product = productMapper.productDTOtoProduct(productDTO);
         product.setDeleted(false);
-        product.setViews(0);
         product.setStrId(RandomString.getAlphaNumericString(50));
         return new IdDTO(productRepository.save(product).getStrId());
     }
@@ -39,6 +38,8 @@ public class ProductServiceImpl implements ProductService{
     public ProductDTO getProduct(IdDTO idDTO){
         Product product = productRepository.getByStrId(idDTO.getId())
                 .orElseThrow(ResourceNotFoundException::new);
+        product.setViews(product.getViews() + 1);
+        productRepository.save(product);
         return productMapper.productToProductDTO(product);
     }
 
