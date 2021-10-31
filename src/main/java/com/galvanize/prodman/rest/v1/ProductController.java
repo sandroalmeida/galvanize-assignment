@@ -2,7 +2,7 @@ package com.galvanize.prodman.rest.v1;
 
 import com.galvanize.prodman.model.IdDTO;
 import com.galvanize.prodman.model.ProductDTO;
-import com.galvanize.prodman.service.ProductService;
+import com.galvanize.prodman.service.ProductServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +16,9 @@ import java.util.List;
 public class ProductController {
 
     public static final String BASE_URL = "/api/v1/products";
-    private final ProductService productService;
+    private final ProductServiceImpl productService;
 
-    public ProductController(final ProductService productService) {
+    public ProductController(final ProductServiceImpl productService) {
         this.productService = productService;
     }
 
