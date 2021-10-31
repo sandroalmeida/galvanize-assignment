@@ -12,9 +12,10 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(value = "/api/v1/products", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = ProductController.BASE_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProductController {
 
+    public static final String BASE_URL = "/api/v1/products";
     private final ProductService productService;
 
     public ProductController(final ProductService productService) {
@@ -41,6 +42,9 @@ public class ProductController {
         return new ResponseEntity<>(productService.softDelete(new IdDTO(id)), HttpStatus.OK);
     }
 
-
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductDTO> updateProduct(@PathVariable String id, @RequestBody ProductDTO productDTO){
+        return new ResponseEntity<>(productService.updateProduct(new IdDTO(id), productDTO), HttpStatus.OK);
+    }
 
 }

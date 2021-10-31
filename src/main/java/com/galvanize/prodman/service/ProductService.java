@@ -57,4 +57,13 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
+    public ProductDTO updateProduct(IdDTO idDTO, ProductDTO productDTO){
+        Product product = productRepository.getByStrId(idDTO.getId());
+        product.setName(productDTO.getName());
+        product.setDescription(productDTO.getDescription());
+        product.setPrice(productDTO.getPrice());
+        productRepository.save(product);
+        return productMapper.productToProductDTO(product);
+    }
+
 }
