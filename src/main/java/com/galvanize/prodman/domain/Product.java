@@ -1,5 +1,6 @@
 package com.galvanize.prodman.domain;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
@@ -9,8 +10,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Getter
-@Setter
+@Data
 public class Product {
 
     @Id

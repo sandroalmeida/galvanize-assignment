@@ -1,6 +1,7 @@
 package com.galvanize.prodman.service;
 
 import com.galvanize.prodman.domain.Product;
+import com.galvanize.prodman.mapper.ProductMapper;
 import com.galvanize.prodman.model.IdDTO;
 import com.galvanize.prodman.model.ProductDTO;
 import com.galvanize.prodman.repository.ProductRepository;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductMapper productMapper = ProductMapper.INSTANCE;
     private final FxService fxService;
 
     public ProductService(final ProductRepository productRepository, final FxService fxService) {
@@ -21,8 +23,10 @@ public class ProductService {
     }
 
     public String create(final ProductDTO productDTO) {
-        final Product product = new Product();
-        mapToEntity(productDTO, product);
+        Product product = productMapper.productDTOtoProduct(productDTO);
+        product.setDeleted(false);
+        product.setViews(0);
+        product.setStrId(RandomString.getAlphaNumericString(50));
         return productRepository.save(product).getStrId();
     }
 
@@ -31,27 +35,26 @@ public class ProductService {
     }
 
     public ProductDTO getProduct(IdDTO idDTO){
-        final ProductDTO productDTO = new ProductDTO();
         Product product = productRepository.getByStrId(idDTO.getId());
-        return mapToDTO(product, productDTO);
+        return productMapper.productToProductDTO(product);
     }
 
-    private Product mapToEntity(final ProductDTO productDTO, final Product product) {
-        product.setName(productDTO.getName());
-        product.setDescription(productDTO.getDescription());
-        product.setPrice(productDTO.getPrice());
-        product.setStrId(RandomString.getAlphaNumericString(50));
-        product.setViews(0);
-        product.setDeleted(false);
-        return product;
-    }
-
-    private ProductDTO mapToDTO(final Product product, final ProductDTO productDTO) {
-        productDTO.setName(product.getName());
-        productDTO.setDescription(product.getDescription());
-        productDTO.setPrice(product.getPrice());
-        productDTO.setStrId(product.getStrId());
-        return productDTO;
-    }
+//    private Product mapToEntity(final ProductDTO productDTO, final Product product) {
+//        product.setName(productDTO.getName());
+//        product.setDescription(productDTO.getDescription());
+//        product.setPrice(productDTO.getPrice());
+//        product.setStrId(RandomString.getAlphaNumericString(50));
+//        product.setViews(0);
+//        product.setDeleted(false);
+//        return product;
+//    }
+//
+//    private ProductDTO mapToDTO(final Product product, final ProductDTO productDTO) {
+//        productDTO.setName(product.getName());
+//        productDTO.setDescription(product.getDescription());
+//        productDTO.setPrice(product.getPrice());
+//        productDTO.setStrId(product.getStrId());
+//        return productDTO;
+//    }
 
 }
