@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+import org.mapstruct.Mapper;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
