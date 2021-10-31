@@ -6,8 +6,12 @@ import com.galvanize.prodman.model.IdDTO;
 import com.galvanize.prodman.model.ProductDTO;
 import com.galvanize.prodman.repository.ProductRepository;
 import com.galvanize.prodman.util.RandomString;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -39,22 +43,18 @@ public class ProductService {
         return productMapper.productToProductDTO(product);
     }
 
-//    private Product mapToEntity(final ProductDTO productDTO, final Product product) {
-//        product.setName(productDTO.getName());
-//        product.setDescription(productDTO.getDescription());
-//        product.setPrice(productDTO.getPrice());
-//        product.setStrId(RandomString.getAlphaNumericString(50));
-//        product.setViews(0);
-//        product.setDeleted(false);
-//        return product;
-//    }
-//
-//    private ProductDTO mapToDTO(final Product product, final ProductDTO productDTO) {
-//        productDTO.setName(product.getName());
-//        productDTO.setDescription(product.getDescription());
-//        productDTO.setPrice(product.getPrice());
-//        productDTO.setStrId(product.getStrId());
-//        return productDTO;
-//    }
+    public String softDelete(IdDTO idDTO){
+        Product product = productRepository.getByStrId(idDTO.getId());
+        product.setDeleted(true);
+        productRepository.save(product);
+        return product.getStrId();
+    }
+
+    public List<ProductDTO> getAllProducts(){
+        return productRepository.findAll()
+                .stream()
+                .map(productMapper::productToProductDTO)
+                .collect(Collectors.toList());
+    }
 
 }
