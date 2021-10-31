@@ -2,8 +2,7 @@ package com.galvanize.prodman.config;
 
 import com.galvanize.prodman.model.ErrorResponse;
 import com.galvanize.prodman.model.FieldError;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.galvanize.prodman.service.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -11,19 +10,21 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestControllerAdvice(annotations = RestController.class)
 public class RestExceptionHandler {
 
-    @ExceptionHandler(ResponseStatusException.class)
-    public ResponseEntity<ErrorResponse> handleNotFound(final ResponseStatusException exception) {
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNotFound(final ResourceNotFoundException exception) {
         final ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setHttpStatus(exception.getStatus().value());
+        errorResponse.setHttpStatus(HttpStatus.NOT_FOUND.value());
         errorResponse.setException(exception.getClass().getSimpleName());
-        errorResponse.setMessage(exception.getMessage());
-        return new ResponseEntity<>(errorResponse, exception.getStatus());
+        errorResponse.setMessage("Resource Not Found");
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

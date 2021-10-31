@@ -37,13 +37,15 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public ProductDTO getProduct(IdDTO idDTO){
-        Product product = productRepository.getByStrId(idDTO.getId());
+        Product product = productRepository.getByStrId(idDTO.getId())
+                .orElseThrow(ResourceNotFoundException::new);
         return productMapper.productToProductDTO(product);
     }
 
     @Override
     public IdDTO softDelete(IdDTO idDTO){
-        Product product = productRepository.getByStrId(idDTO.getId());
+        Product product = productRepository.getByStrId(idDTO.getId())
+                .orElseThrow(ResourceNotFoundException::new);
         product.setDeleted(true);
         productRepository.save(product);
         return idDTO;
@@ -59,7 +61,8 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public ProductDTO updateProduct(IdDTO idDTO, ProductDTO productDTO){
-        Product product = productRepository.getByStrId(idDTO.getId());
+        Product product = productRepository.getByStrId(idDTO.getId())
+                .orElseThrow(ResourceNotFoundException::new);
         product.setName(productDTO.getName());
         product.setDescription(productDTO.getDescription());
         product.setPrice(productDTO.getPrice());
