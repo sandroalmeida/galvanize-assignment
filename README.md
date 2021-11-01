@@ -45,4 +45,9 @@ No customized configurations was made.
 - Implement customized fields responses.
 
 ## Project Images and Tests
+![database](https://user-images.githubusercontent.com/6804563/139712451-7f6691a9-a50a-4d74-9564-618d670551fb.png)
+
+![swagger](https://user-images.githubusercontent.com/6804563/139712456-150a5bef-6bd1-490a-b91c-60b3ecef38bc.png)
+
+![postman](https://user-images.githubusercontent.com/6804563/139712454-b10aa11c-17f2-4b34-9fa7-7522c256ac39.png)
 
