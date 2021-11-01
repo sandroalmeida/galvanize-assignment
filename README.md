@@ -18,6 +18,8 @@ The latest exchange rates are retrieved from the public API https://currencylaye
 
 This is a initial development to achieve the requirements described on the instructions.
 Some highlights about the implementation:
+# Versioning
+Added versioning package and Base URL to Controllers layer.
 # Random String ID
 The product model was changed to include a new field called StrID (String ID) and a helper function to generate this ID was implemented.
 This procedure was made to improve the security of the API, considering the API is using this parameter as filtering the sequencial number if exposed could be used to overload the server maliciously.
